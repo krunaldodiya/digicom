@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRelativesTable extends Migration
+class CreateUserRelativesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,17 @@ class CreateRelativesTable extends Migration
      */
     public function up()
     {
-        Schema::create('relatives', function (Blueprint $table) {
+        Schema::create('user_relatives', function (Blueprint $table) {
             $table->increments('id');
 
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->integer('from');
-            $table->integer('to');
-            $table->string('from_relation');
-            $table->string('to_relation');
+            $table->unsignedInteger('relative_id');
+            $table->foreign('relative_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->string('relation');
+
             $table->boolean('status')->default(false);
             $table->timestamps();
         });
@@ -35,6 +36,6 @@ class CreateRelativesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('relatives');
+        Schema::dropIfExists('user_relatives');
     }
 }

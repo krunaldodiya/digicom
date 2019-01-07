@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserProfileTable extends Migration
+class CreateAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,18 @@ class CreateUserProfileTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_profile', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
 
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
+            $table->string('secondary_mobile', 10);
+            $table->string('name')->nullable();
             $table->string('dob', 10)->nullable();
             $table->string('gender')->default('Male');
+            $table->string('avatar')->nullable();
+
             $table->string('marital_status')->default('Single');
             $table->string('education')->nullable();
             $table->string('occupation')->nullable();
@@ -41,6 +45,6 @@ class CreateUserProfileTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_profile');
+        Schema::dropIfExists('accounts');
     }
 }

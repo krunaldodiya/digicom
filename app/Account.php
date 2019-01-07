@@ -2,16 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use KD\Wallet\Traits\HasWallet;
-use App\Events\UserWasCreated;
-use Laravel\Passport\HasApiTokens;
-use Hash;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class UserProfile extends Model
 {
     use HasApiTokens, Notifiable, HasWallet;
 
