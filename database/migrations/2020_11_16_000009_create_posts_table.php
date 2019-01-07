@@ -25,7 +25,7 @@ class CreatePostsTable extends Migration
             $table->text('description');
             $table->string('category')->nullable();
             $table->string('location')->nullable();
-            $table->dateTime('datetime')->nullable();
+            $table->string('date')->nullable();
             $table->string('contact')->nullable();
             $table->string('url')->nullable();
 

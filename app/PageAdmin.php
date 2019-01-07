@@ -3,18 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class PageAdmin extends Model
 {
     protected $fillable = [
-        'category_id', 'name', 'description', 'photo', 'public', 'status', 'created_at', 'updated_at',
+        'user_id', 'page_id', 'created_at', 'updated_at',
     ];
-
-    public function members()
-    {
-        return $this->hasMany(User::class);
-    }
 
     protected $dates = ['created_at', 'updated_at'];
 }

@@ -21,8 +21,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'community_id', 'name', 'father_city', 'mother_city', 'mobile', 'secondary_mobile', 'gender', 'dob',
-        'marital_status', 'education', 'occupation', 'address', 'avatar', 'profile_updated', 'created_at', 'updated_at'
+        'account_id', 'name', 'dob', 'gender', 'avatar', 'marital_status', 'education', 'occupation',
+        'father_city', 'mother_city', 'address', 'status', 'created_at', 'updated_at'
     ];
 
     protected $appends = ['age'];

@@ -22,7 +22,6 @@ class CreateSettingsTable extends Migration
             $table->boolean('show_mobile')->default(true);
             $table->boolean('show_birthday')->default(true);
 
-            $table->boolean('community_mode')->default(true);
             $table->timestamps();
         });
     }

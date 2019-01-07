@@ -3,18 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
 
 class PostImage extends Model
 {
     protected $fillable = [
-        'name', 'description', 'photo', 'status', 'created_at', 'updated_at',
+        'page_id', 'post_id', 'user_id', 'photo', 'created_at', 'updated_at',
     ];
-
-    public function members()
-    {
-        return $this->hasMany(User::class);
-    }
 
     protected $dates = ['created_at', 'updated_at'];
 }
