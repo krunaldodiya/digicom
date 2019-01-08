@@ -1,0 +1,123 @@
+Daily 4 to 5 features (8 days) at-least 30 to 40 features
+---------------------------------------------------------
+
+01) Accept Terms
+        Show next screen only if terms is Accepted
+
+02) Otp
+        Request
+        Verify
+
+03) Switch Account
+        User can Login using existing account
+        User can Create Account
+
+04) Create Account
+        relation
+        mobile
+        name
+        gender
+        birthday
+            Next screen is Join Community
+
+05) Add Relative
+        mobile
+        name
+        gender
+        birthday
+            Next screen is Add Relation
+
+06) Add Relation
+        Show Relation list
+
+07) Join Community Page (with SKIP option)
+        User can join Community anytime from setting screen
+        Add (Community if joined & Personal) options in page tab
+        Also show Community page recommendation on page tab
+    
+08) Manage Account - Edit Profile
+    if authUser primary_mobile is same guestUser than
+        authUser can edit own or guestUser Profile
+    
+09) Manage Account - Change Avatar
+        if authUser primary_mobile is same guestUser than
+            authUser can change own or guestUser Avatar
+
+10) Tabs
+        Posts
+            Show posts only from subscribed Pages
+            Show posts only from friends, family & contact list
+        Pages
+            Show posts only from subscribed Pages
+            Show bottom FAB that open Pages screen
+        Chats
+            Show friend request
+            WhatsApp logic
+            Show bottom FAB that open My Family screen
+                list of contacts, friends & family, subscribed groups
+
+11) My Family Screen
+        Add Relative
+        show all family members
+
+12) Page Screen
+        Create a page
+        Show all page categories but personal & Community
+
+
+13) Side Menu Items
+        Setting
+        Invite
+        Terms
+        Help (about us, contact us & rate us, app info - version, check update)
+        Switch Account 
+        My Family
+
+14) Can only chat if added as (friends or family)
+
+
+
+
+
+Personal
+-------------------------------------------
+        Photos
+        Videos
+
+Community
+-------------------------------------------
+        Directory
+        Events
+
+
+Employment
+-------------------------------------------
+        Central Government Jobs
+        State Government Jobs
+        Private Jobs - Part Time
+        Private Jobs - Full Time
+
+
+
+
+
+
+jobs meta
+----------
+description
+Age
+Date
+Vacancies
+Education
+Experience
+Salary
+
+
+events meta
+-------------
+description
+location
+date
+contact
+url
+ 

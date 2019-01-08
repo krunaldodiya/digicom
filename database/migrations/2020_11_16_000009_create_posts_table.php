@@ -22,12 +22,7 @@ class CreatePostsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->text('description');
-            $table->string('category')->nullable();
-            $table->string('location')->nullable();
-            $table->string('date')->nullable();
-            $table->string('contact')->nullable();
-            $table->string('url')->nullable();
+            $table->json('meta');
 
             $table->timestamps();
         });

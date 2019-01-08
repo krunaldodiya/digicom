@@ -16,6 +16,8 @@ class CreatePageCategoriesTable extends Migration
         Schema::create('page_categories', function (Blueprint $table) {
             $table->increments('id');
             $table->text('name');
+            $table->boolean('selectable');
+            $table->boolean('searchable');
             $table->timestamps();
         });
     }

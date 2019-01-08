@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
-use App\Http\Requests\Login;
 use App\User;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\Otp;
 use Exception;
 use RobinCSamuel\LaravelMsg91\Facades\LaravelMsg91;
 use App\Http\Requests\RequestOtp;
@@ -57,7 +55,7 @@ class OtpController extends Controller
             $verifyOtp = $this->otpAuth($mobile, $otp, 'verify', $production);
 
             if ($verifyOtp->message == 'otp_verified') {
-                return ['success' => true];
+                return ['user' => User::where(['mobile' => $mobile])->first()];
             }
 
             throw new OtpVerificationFailed($verifyOtp->message);

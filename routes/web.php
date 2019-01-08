@@ -9,12 +9,14 @@ use App\Page;
 Auth::routes();
 
 Route::get('/test', function () {
-    $map = collect(Community::get())->map(function ($community) {
+    $data = [];
+
+    $map = collect($data)->map(function ($state) {
         return [
-            'category_id' => 5,
-            'name' => $community->name,
-            'description' => $community->description,
-            'photo' => $community->photo,
+            'category_id' => 6,
+            'name' => "Private jobs in $state",
+            'description' => "Find Government & Private jobs around you",
+            'photo' => "https://cdn4.iconfinder.com/data/icons/business-solid-style/24/find-job-128.png",
             'public' => true,
             'status' => true,
             "created_at" => Carbon::now(),
@@ -22,7 +24,7 @@ Route::get('/test', function () {
         ];
     });
 
-    $create = Page::insert($map->toArray());
+    // $create = Page::insert($map->toArray());
 
     return 'done';
 });

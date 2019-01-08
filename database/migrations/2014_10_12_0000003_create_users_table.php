@@ -16,8 +16,8 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('account_id');
-            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+            $table->string('mobile', 10)->unique()->nullable()->comment('must be verified through otp before changing');
+            $table->string('secondary_mobile', 10)->nullable();
 
             $table->string('name')->nullable();
             $table->string('dob', 10)->nullable();
