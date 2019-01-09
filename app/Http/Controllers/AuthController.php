@@ -32,7 +32,7 @@ class AuthController extends Controller
         return $auth ? auth()->loginUsingId(1) : redirect()->back()->withErrors('Authentication failed.');
     }
 
-    public function getToken($authUser)
+    protected function getToken($authUser)
     {
         $user = $this->userRepo->getUserById($authUser['id']);
         $token = $user->createToken('SocialStock', [])->accessToken;
@@ -60,13 +60,23 @@ class AuthController extends Controller
 
     public function register(Register $request)
     {
-        $mobile = $request->mobile;
-        $community_id = $request->community_id;
+        $authUser = auth()->user();
 
         try {
-            $createUser = User::create(['mobile' => $mobile, 'secondary_mobile' => $mobile, 'community_id' => $community_id]);
+            $createUser = User::create([
+                'name' => $request->name,
+                'gender' => $request->gender,
+                'marital_status' => $request->marital_status,
+                'dob' => $request->dob,
+                'avatar' => $request->avatar,
+                'status' => true
+            ]);
 
             if ($createUser && $createUser->setting()->create()) {
+                if ($request->relation !== 'Self') {
+                    //
+                }
+
                 return $this->getToken($createUser);
             }
 

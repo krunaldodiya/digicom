@@ -24,14 +24,13 @@ class UpdateUserProfile extends FormRequest
     public function rules()
     {
         return [
+            'mobile' => 'required|size:10',
             'name' => 'required|min:3',
             'dob' => 'required|size:10',
             'gender' => 'required',
             'marital_status' => 'required',
-            'education' => 'required',
-            'occupation' => 'required|min:3',
-            'father_city' => 'required|min:3',
-            'mother_city' => 'required|min:3',
+            'avatar' => 'required',
+            'relation' => 'required',
         ];
     }
 }

@@ -15,14 +15,7 @@ class Register extends FormRequest
     public function rules()
     {
         return [
-            'mobile' => 'numeric|digits:10'
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'mobile.required' => 'Mobile is required'
+            'mobile' => 'required|size:10'
         ];
     }
 

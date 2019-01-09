@@ -55,7 +55,10 @@ class OtpController extends Controller
             $verifyOtp = $this->otpAuth($mobile, $otp, 'verify', $production);
 
             if ($verifyOtp->message == 'otp_verified') {
-                return ['user' => User::where(['mobile' => $mobile])->first()];
+                $user = User::firstOrCreate(['mobile' => $mobile]);
+                $token = $user->createToken('SocialStock', [])->accessToken;
+
+                return compact('user', 'token');
             }
 
             throw new OtpVerificationFailed($verifyOtp->message);
