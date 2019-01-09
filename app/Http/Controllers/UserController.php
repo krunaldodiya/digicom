@@ -25,15 +25,6 @@ class UserController extends Controller
         return compact('user');
     }
 
-    public function getUsersByMobile(Request $request)
-    {
-        $users = User::where('mobile', $request->mobile)
-            ->orWhere('secondary_mobile', $request->mobile)
-            ->get();
-
-        return compact('users');
-    }
-
     public function getUserById(Request $request)
     {
         $user = $this->userRepo->getUserById($request['user_id']);
@@ -41,7 +32,7 @@ class UserController extends Controller
         return compact('user');
     }
 
-    public function updateUserProfile(UpdateUserProfile $request)
+    public function updateProfile(UpdateUserProfile $request)
     {
         $authUser = auth()->user();
         $input = $request->only(['name', 'dob', 'gender', 'marital_status', 'avatar', 'status']);
@@ -106,6 +97,15 @@ class UserController extends Controller
     }
 
     public function changeAvatar(Request $request)
+    {
+        $authUser = auth()->user();
+
+        $update = $authUser->update(['avatar' => $request->avatar]);
+
+        return ['success' => $update ? true : false];
+    }
+
+    public function addMember(Request $request)
     {
         $authUser = auth()->user();
 

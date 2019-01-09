@@ -6,9 +6,9 @@ use Illuminate\Http\Request;
 use App\Relative;
 use App\User;
 
-class RelativeController extends Controller
+class FamilyController extends Controller
 {
-    public function requestRelation(Request $request)
+    public function manageRequest(Request $request)
     {
         $authUser = auth()->user();
 
@@ -71,7 +71,7 @@ class RelativeController extends Controller
 
             $from = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $from])->first();
             $to = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $to])->first();
-            
+
             return compact('from', 'to');
         } catch (Exception $e) {
             return ['error' => $e->getMessage()];
@@ -90,10 +90,20 @@ class RelativeController extends Controller
 
             $from = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $from])->first();
             $to = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $to])->first();
-            
+
             return compact('from', 'to');
         } catch (Exception $e) {
             return ['error' => $e->getMessage()];
         }
+    }
+
+    public function addMember()
+    {
+        //
+    }
+
+    public function switchMember()
+    {
+        //
     }
 }
