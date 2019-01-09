@@ -30,7 +30,6 @@ class UpdateUserProfile extends FormRequest
             'gender' => 'required',
             'marital_status' => 'required',
             'avatar' => 'required',
-            'relation' => 'required',
         ];
     }
 }
