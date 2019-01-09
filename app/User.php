@@ -77,11 +77,6 @@ class User extends Authenticatable
 
     public function relatives()
     {
-        return $this->hasMany(Relative::class, 'to');
-    }
-
-    public function community()
-    {
-        return $this->belongsTo(Community::class);
+        return $this->hasMany(UserRelative::class, 'relative_id');
     }
 }

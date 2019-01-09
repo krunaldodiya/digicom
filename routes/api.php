@@ -52,8 +52,3 @@ Route::group(['prefix' => 'relation', 'middleware' => 'auth:api'], function () {
 Route::group(['prefix' => 'wallet', 'middleware' => 'auth:api'], function () {
     Route::post('/info', 'UserController@wallet');
 });
-
-Route::group(['prefix' => 'communities'], function () {
-    Route::post('/', 'CommunityController@getCommunities');
-    Route::post('/add', 'CommunityController@addCommunity');
-});

@@ -60,8 +60,8 @@ class UserController extends Controller
     {
         $limit = 10;
         $authUser = auth()->user();
-        $users = User::with('community', 'setting', 'relatives.user.setting')
-            ->where(['community_id' => $authUser['community_id'], 'profile_updated' => true])
+        $users = User::with('setting', 'relatives.user.setting')
+            ->where(['status' => true])
             ->where(function ($query) use ($request) {
                 if ($request->has('filters')) {
                     $filters = $request['filters'];
