@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserPagesTable extends Migration
+class CreateGroupTopicsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateUserPagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_pages', function (Blueprint $table) {
+        Schema::create('group_topics', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('page_id');
+            $table->text('name');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateUserPagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_pages');
+        Schema::dropIfExists('group_topics');
     }
 }

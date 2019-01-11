@@ -90,16 +90,11 @@ Community
         Events
 
 
-Employment
+Business
 -------------------------------------------
-        Central Government Jobs
-        State Government Jobs
-        Private Jobs - Part Time
-        Private Jobs - Full Time
-
-
-
-
+2	"Business - Local Business or Place"	null	null	1	0
+3	"Business - Product or Brand"	null	null	1	0
+4	"Business - Company Organization or Institution"	null	null	1	0
 
 
 jobs meta
@@ -115,9 +110,10 @@ Salary
 
 events meta
 -------------
+title
 description
-location
 date
+location
 contact
-url
+website
  

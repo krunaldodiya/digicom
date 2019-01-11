@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePageCategoriesTable extends Migration
+class CreateEventCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreatePageCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('page_categories', function (Blueprint $table) {
+        Schema::create('event_categories', function (Blueprint $table) {
             $table->increments('id');
+
+            $table->unsignedInteger('community_id');
+            $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
+
             $table->text('name');
-            $table->boolean('selectable');
-            $table->boolean('searchable');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreatePageCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('page_categories');
+        Schema::dropIfExists('event_categories');
     }
 }

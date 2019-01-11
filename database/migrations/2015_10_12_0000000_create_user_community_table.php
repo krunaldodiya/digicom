@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserRelativesTable extends Migration
+class CreateUserCommunityTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,15 @@ class CreateUserRelativesTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_relatives', function (Blueprint $table) {
+        Schema::create('user_community', function (Blueprint $table) {
             $table->increments('id');
 
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->unsignedInteger('relative_id');
-            $table->foreign('relative_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedInteger('community_id');
+            $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
 
-            $table->string('relation');
-
-            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
@@ -36,6 +33,6 @@ class CreateUserRelativesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_relatives');
+        Schema::dropIfExists('user_community');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePagesTable extends Migration
+class CreateGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,22 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('pages', function (Blueprint $table) {
+        Schema::create('groups', function (Blueprint $table) {
             $table->increments('id');
-            
-            $table->unsignedInteger('category_id')->default(1);            
-            $table->foreign('category_id')->references('id')->on('page_categories')->onDelete('cascade');
+
+            $table->unsignedInteger('topic_id');
+            $table->foreign('topic_id')->references('id')->on('group_topics')->onDelete('cascade');
+
+            $table->unsignedInteger('owner_id');
+            $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->string('name');
-            $table->text('description');
             $table->string('photo')->nullable();
-            $table->boolean('public')->default(true);
             $table->boolean('status')->default(true);
+
+            $table->boolean('anyone_can_post')->default(false);
+            $table->boolean('anyone_can_join')->default(false);
+
             $table->timestamps();
         });
     }
@@ -35,6 +40,6 @@ class CreatePagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pages');
+        Schema::dropIfExists('groups');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePageAdminTable extends Migration
+class CreateContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,16 @@ class CreatePageAdminTable extends Migration
      */
     public function up()
     {
-        Schema::create('page_admin', function (Blueprint $table) {
+        Schema::create('contacts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('page_id');
-            $table->integer('user_id');
+
+            $table->unsignedInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->string('contact_id')->nullable();
+            $table->string('contact_number');
+            $table->string('contact_name');
+
             $table->timestamps();
         });
     }
@@ -28,6 +34,6 @@ class CreatePageAdminTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('page_admin');
+        Schema::dropIfExists('contacts');
     }
 }
