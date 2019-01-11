@@ -15,10 +15,7 @@ class CreateEventCategoriesTable extends Migration
     {
         Schema::create('event_categories', function (Blueprint $table) {
             $table->increments('id');
-
-            $table->unsignedInteger('community_id');
-            $table->foreign('community_id')->references('id')->on('communities')->onDelete('cascade');
-
+            $table->integer('community_id')->default(0);
             $table->text('name');
             $table->timestamps();
         });

@@ -1,9 +1,96 @@
 <?php
 
 use App\User;
+use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
 
-Route::group(['prefix' => 'test', 'middleware' => 'guest:api'], function () {
-    //
+$data = [
+    "Andhra Pradesh",
+    "Arunachal Pradesh",
+    "Assam",
+    "Bihar",
+    "Chhattisgarh",
+    "Goa",
+    "Gujarat",
+    "Haryana",
+    "Himachal Pradesh",
+    "Jammu & Kashmir",
+    "Jharkhand",
+    "Karnataka",
+    "Kerala",
+    "Madhya Pradesh",
+    "Maharashtra",
+    "Manipur",
+    "Meghalaya",
+    "Mizoram",
+    "Nagaland",
+    "Odisha",
+    "Punjab",
+    "Rajasthan",
+    "Sikkim",
+    "Tamil Nadu",
+    "Telangana",
+    "Tripura",
+    "Uttarakhand",
+    "Uttar Pradesh",
+    "West Bengal",
+    "Andaman and Nicobar Islands",
+    "Chandigarh",
+    "Dadra and Nagar Haveli",
+    "Daman & Diu",
+    "The Government of NCT of Delhi",
+    "Lakshadweep",
+    "Puducherry"
+];
+
+Route::group(['prefix' => 'admin', 'middleware' => 'guest:api'], function () use ($data) {
+    Route::get('/test', function () use ($data) {
+        $private_jobs = collect($data)->map(function ($state) {
+            return [
+                "name" => "Private jobs in $state",
+                "topic_id" => 4,
+                "owner_id" => 1,
+                'photo' => 'https://templatic.com/_data/icons/Multiple-job-types.png',
+                'anyone_can_post' => true,
+                'anyone_can_join' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+        });
+
+        $government_jobs = collect($data)->map(function ($state) {
+            return [
+                "name" => "Government jobs in $state",
+                "topic_id" => 4,
+                "owner_id" => 1,
+                'photo' => 'https://templatic.com/_data/icons/Multiple-job-types.png',
+                'anyone_can_post' => true,
+                'anyone_can_join' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+        });
+
+        $breaking_news = collect($data)->map(function ($state) {
+            return [
+                "name" => "Breaking news of $state",
+                "topic_id" => 5,
+                "owner_id" => 1,
+                'photo' => 'https://spacecoasttpo.com/wp-content/uploads/2017/08/News_feed.png',
+                'anyone_can_post' => true,
+                'anyone_can_join' => true,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+        });
+
+        $final = array_merge($private_jobs->toArray(), $government_jobs->toArray(), $breaking_news->toArray());
+
+        $insert = DB::table('groups')->insert($final);
+        return 'done';
+
+
+    });
 });
 
 Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
