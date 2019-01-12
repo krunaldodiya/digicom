@@ -34,3 +34,7 @@ Route::group(['prefix' => 'family', 'middleware' => 'auth:api'], function () {
     Route::post('/add', 'FamilyController@addMember');
     Route::post('/switch', 'FamilyController@switchMember');
 });
+
+Route::group(['prefix' => 'communities', 'middleware' => 'auth:api'], function () {
+    Route::post('/', 'CommunityController@getCommunities');
+});

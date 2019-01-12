@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS `communities`;
 CREATE TABLE `communities` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `religion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `religion` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE `communities` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=478 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;;
 
-INSERT INTO `communities` (`id`, `religion`, `name`, `photo`, `status`, `created_at`, `updated_at`) VALUES ('1', 'Ad Dharmi', 'Hindu', 'https://cdn4.iconfinder.com/data/icons/smashicons-religion-flat/57/11_-_Hinduism_Flat-128.png', '1', '2019-01-06 11:20:03', '2019-01-06 11:20:03'),
+INSERT INTO `communities` (`id`, `name`, `religion`, `photo`, `status`, `created_at`, `updated_at`) VALUES ('1', 'Ad Dharmi', 'Hindu', 'https://cdn4.iconfinder.com/data/icons/smashicons-religion-flat/57/11_-_Hinduism_Flat-128.png', '1', '2019-01-06 11:20:03', '2019-01-06 11:20:03'),
 ('2', 'Adi Andhra', 'Hindu', 'https://cdn4.iconfinder.com/data/icons/smashicons-religion-flat/57/11_-_Hinduism_Flat-128.png', '1', '2019-01-06 11:20:03', '2019-01-06 11:20:03'),
 ('3', 'Adi Dravida', 'Hindu', 'https://cdn4.iconfinder.com/data/icons/smashicons-religion-flat/57/11_-_Hinduism_Flat-128.png', '1', '2019-01-06 11:20:03', '2019-01-06 11:20:03'),
 ('4', 'Adi Karnataka', 'Hindu', 'https://cdn4.iconfinder.com/data/icons/smashicons-religion-flat/57/11_-_Hinduism_Flat-128.png', '1', '2019-01-06 11:20:03', '2019-01-06 11:20:03'),
