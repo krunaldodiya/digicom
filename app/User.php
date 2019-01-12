@@ -21,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'mobile', 'secondary_mobile', 'name', 'dob', 'gender', 'avatar', 'marital_status', 'status', 'created_at', 'updated_at'
+        'mobile', 'name', 'dob', 'gender', 'avatar', 'marital_status', 'status', 'created_at', 'updated_at'
     ];
 
     protected $appends = ['age'];
@@ -44,14 +44,9 @@ class User extends Authenticatable
         'created' => UserWasCreated::class
     ];
 
-    public function setPasswordAttribute($password)
-    {
-        $this->attributes['password'] = bcrypt($password);
-    }
-
     public function getAgeAttribute()
     {
-        return Carbon::parse($this->attributes['dob'])->age;
+        return $this->dob ? Carbon::parse($this->dob)->age : 0;
     }
 
     public function getAvatarAttribute()
@@ -75,8 +70,13 @@ class User extends Authenticatable
         return $this->hasOne(Setting::class);
     }
 
-    public function relatives()
+    public function community()
     {
-        return $this->hasMany(UserRelative::class, 'relative_id');
+        return $this->belongsTo(UserCommunity::class);
+    }
+
+    public function contacts()
+    {
+        return $this->hasMany(Contact::class);
     }
 }

@@ -51,7 +51,7 @@ class UserController extends Controller
     {
         $limit = 10;
         $authUser = auth()->user();
-        $users = User::with('setting', 'relatives.user.setting')
+        $users = User::with('setting')
             ->where(['status' => true])
             ->where(function ($query) use ($request) {
                 if ($request->has('filters')) {

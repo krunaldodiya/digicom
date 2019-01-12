@@ -12,6 +12,7 @@ use App\Listeners\CreateUserWallet;
 
 use App\Events\UpdateOrderStatus;
 use App\Listeners\OrderStatusUpdated;
+use App\Listeners\CreateUserSetting;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -26,7 +27,8 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         UserWasCreated::class => [
-            CreateUserWallet::class
+            CreateUserWallet::class,
+            CreateUserSetting::class,
         ]
     ];
 

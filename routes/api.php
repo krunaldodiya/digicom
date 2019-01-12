@@ -1,8 +1,11 @@
 <?php
 
+use App\User;
+
 Route::group(['prefix' => 'admin', 'middleware' => 'guest:api'], function () {
     Route::get('/test', function () {
-        return 'done';
+        $user = User::with('contacts', 'community')->find(1);
+        return ['user' => $user];
     });
 });
 
@@ -14,8 +17,7 @@ Route::group(['prefix' => 'otp', 'middleware' => 'guest:api'], function () {
 Route::group(['prefix' => 'settings', 'middleware' => 'auth:api'], function () {
     Route::post('/set-mobile-status', 'SettingController@setMobileStatus');
     Route::post('/set-birthday-status', 'SettingController@setBirthdayStatus');
-    Route::post('/update-aadhaar-card', 'SettingController@updateAadhaarCard');
-    Route::post('/update-secondary-mobile', 'SettingController@updateSecondaryMobile');
+    Route::post('/change-mobile', 'SettingController@changeMobile');
     Route::post('/delete-account', 'SettingController@deleteAccount');
 });
 

@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Requests\UidSetting;
 use App\Http\Requests\MobileSetting;
+use App\Repositories\UserRepository;
 
 class SettingController extends Controller
 {
+    public $userRepo;
+
+    public function __construct(UserRepository $userRepo)
+    {
+        $this->userRepo = $userRepo;
+    }
+
     public function deleteAccount(Request $request)
     {
         $authUser = auth()->user();
@@ -29,7 +37,7 @@ class SettingController extends Controller
 
         try {
             $authUser->setting()->update(['show_mobile' => $setting]['show_mobile']);
-            $user = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $authUser['id']])->first();
+            $user = $this->userRepo->getUserById($authUser['id']);
 
             return compact('user');
         } catch (Exception $e) {
@@ -44,7 +52,7 @@ class SettingController extends Controller
 
         try {
             $authUser->setting()->update(['show_birthday' => $setting]['show_birthday']);
-            $user = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $authUser['id']])->first();
+            $user = $this->userRepo->getUserById($authUser['id']);
 
             return compact('user');
         } catch (Exception $e) {
@@ -52,29 +60,14 @@ class SettingController extends Controller
         }
     }
 
-    public function updateAadhaarCard(UidSetting $request)
-    {
-        $authUser = auth()->user();
-        $uid = $request['uid'];
-
-        try {
-            $authUser->update(['uid' => $uid]);
-            $user = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $authUser['id']])->first();
-
-            return compact('user');
-        } catch (Exception $e) {
-            return ['error' => $e->getMessage()];
-        }
-    }
-
-    public function updateSecondaryMobile(MobileSetting $request)
+    public function changeMobile(MobileSetting $request)
     {
         $authUser = auth()->user();
         $secondary_mobile = $request['secondary_mobile'];
 
         try {
             $authUser->update(['secondary_mobile' => $secondary_mobile]);
-            $user = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $authUser['id']])->first();
+            $user = $this->userRepo->getUserById($authUser['id']);
 
             return compact('user');
         } catch (Exception $e) {

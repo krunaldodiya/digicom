@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Request;
 use App\User;
-use Illuminate\Support\Facades\Mail;
 use Exception;
 use RobinCSamuel\LaravelMsg91\Facades\LaravelMsg91;
 use App\Http\Requests\RequestOtp;
 use App\Http\Requests\VerifyOtp;
 use App\Exceptions\OtpVerificationFailed;
+use App\Repositories\UserRepository;
 
 class OtpController extends Controller
 {
+    public $userRepo;
+
+    public function __construct(UserRepository $userRepo)
+    {
+        $this->userRepo = $userRepo;
+    }
+
     protected function otpAuth($mobile, $otp, $type, $production)
     {
         if ($production) {
@@ -55,7 +62,9 @@ class OtpController extends Controller
             $verifyOtp = $this->otpAuth($mobile, $otp, 'verify', $production);
 
             if ($verifyOtp->message == 'otp_verified') {
-                $user = User::firstOrCreate(['mobile' => $mobile]);
+                $authUser = User::firstOrCreate(['mobile' => $mobile]);
+
+                $user = $this->userRepo->getUserById($authUser['id']);
                 $token = $user->createToken('SocialStock', [])->accessToken;
 
                 return compact('user', 'token');

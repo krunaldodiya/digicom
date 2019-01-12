@@ -5,9 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Relative;
 use App\User;
+use App\Repositories\UserRepository;
 
 class FamilyController extends Controller
 {
+    public $userRepo;
+
+    public function __construct(UserRepository $userRepo)
+    {
+        $this->userRepo = $userRepo;
+    }
+
     public function manageRequest(Request $request)
     {
         $authUser = auth()->user();
@@ -50,8 +58,8 @@ class FamilyController extends Controller
                 ]
             ]);
 
-            $from = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $from])->first();
-            $to = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $to])->first();
+            $from = $this->userRepo->getUserById($from);
+            $to = $this->userRepo->getUserById($to);
 
             return compact('from', 'to');
         } catch (Exception $e) {
@@ -69,8 +77,8 @@ class FamilyController extends Controller
                 ->orWhere(['from' => $to, 'to' => $from])
                 ->update(['status' => true]);
 
-            $from = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $from])->first();
-            $to = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $to])->first();
+            $from = $this->userRepo->getUserById($from);
+            $to = $this->userRepo->getUserById($to);
 
             return compact('from', 'to');
         } catch (Exception $e) {
@@ -88,8 +96,8 @@ class FamilyController extends Controller
                 ->orWhere(['from' => $to, 'to' => $from])
                 ->delete();
 
-            $from = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $from])->first();
-            $to = User::with('caste', 'sub_caste', 'setting', 'relatives.user.setting')->where(['id' => $to])->first();
+            $from = $this->userRepo->getUserById($from);
+            $to = $this->userRepo->getUserById($to);
 
             return compact('from', 'to');
         } catch (Exception $e) {
