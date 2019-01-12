@@ -39,6 +39,6 @@ Route::group(['prefix' => 'family', 'middleware' => 'auth:api'], function () {
 
 Route::group(['prefix' => 'communities', 'middleware' => 'auth:api'], function () {
     Route::post('/get', 'CommunityController@get');
-    Route::post('/select', 'CommunityController@skip');
-    Route::post('/skip', 'CommunityController@select');
+    Route::post('/skip', 'CommunityController@skip');
+    Route::post('/select', 'CommunityController@select');
 });
