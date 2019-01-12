@@ -4,7 +4,9 @@ use App\User;
 
 Route::group(['prefix' => 'admin', 'middleware' => 'guest:api'], function () {
     Route::get('/test', function () {
-        $user = User::with('contacts', 'community')->find(1);
+        $user = User::with('contacts', 'community.detail')->find(1);
+        $skip = $user->setting()->update(['skip_community' => true]);
+
         return ['user' => $user];
     });
 });
@@ -36,5 +38,7 @@ Route::group(['prefix' => 'family', 'middleware' => 'auth:api'], function () {
 });
 
 Route::group(['prefix' => 'communities', 'middleware' => 'auth:api'], function () {
-    Route::post('/', 'CommunityController@getCommunities');
+    Route::post('/get', 'CommunityController@get');
+    Route::post('/select', 'CommunityController@skip');
+    Route::post('/skip', 'CommunityController@select');
 });

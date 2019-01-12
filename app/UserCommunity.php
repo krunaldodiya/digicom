@@ -13,4 +13,9 @@ class UserCommunity extends Model
     ];
 
     protected $dates = ['created_at', 'updated_at'];
+
+    public function detail()
+    {
+        return $this->belongsTo(Community::class, 'community_id', 'id');
+    }
 }

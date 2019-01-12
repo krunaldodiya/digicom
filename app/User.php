@@ -72,7 +72,7 @@ class User extends Authenticatable
 
     public function community()
     {
-        return $this->belongsTo(UserCommunity::class);
+        return $this->belongsTo(UserCommunity::class, 'id', 'user_id');
     }
 
     public function contacts()
