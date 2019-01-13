@@ -18,7 +18,7 @@ class CommunityController extends Controller
 
     public function get(Request $request)
     {
-        $communities = Community::withCount('members')->get();
+        $communities = Community::withCount('members')->orderBy('members_count', 'desc')->get();
 
         return ['communities' => $communities];
     }
