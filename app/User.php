@@ -79,4 +79,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Contact::class);
     }
+
+    public function family_members()
+    {
+        return $this->hasMany(Directory::class);
+    }
 }
