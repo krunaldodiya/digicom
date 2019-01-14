@@ -19,14 +19,19 @@ class CreateDirectoryTable extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->string('name');
-            $table->string('dob', 10);
             $table->string('gender');
-            $table->string('avatar');
-            $table->string('marital_status')->default('Single');
-
-            $table->string('relation')->default('Self');
+            $table->string('relation');
             $table->boolean('status')->default(false);
+
+            $table->string('name')->nullable();
+            $table->string('dob', 10)->nullable();
+            $table->string('avatar')->nullable();
+            $table->string('marital_status')->nullable();
+
+            $table->string('education')->nullable();
+            $table->string('occupation')->nullable();
+            $table->string('father_city')->nullable();
+            $table->string('mother_city')->nullable();
 
             $table->timestamps();
         });

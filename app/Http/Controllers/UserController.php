@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Caste;
 use App\User;
+use App\Directory;
 use App\Http\Requests\UpdateUserProfile;
 use App\Repositories\UserRepository;
 
@@ -35,65 +35,23 @@ class UserController extends Controller
     public function updateProfile(UpdateUserProfile $request)
     {
         $authUser = auth()->user();
-        $input = $request->only(['name', 'dob', 'gender', 'marital_status', 'avatar', 'status']);
 
         try {
-            $authUser->update($input);
+            $authUser->update($request->only(['name', 'dob', 'gender', 'avatar', 'status']));
             $user = $this->userRepo->getUserById($authUser['id']);
+
+            Directory::firstOrCreate([
+                'relation' => 'Self',
+                'user_id' => $user->id,
+                'name' => $user->name,
+                'dob' => $user->dob,
+                'gender' => $user->gender,
+            ]);
 
             return compact('user');
         } catch (Exception $e) {
             return ['error' => $e->getMessage()];
         }
-    }
-
-    public function getAllUsers(Request $request)
-    {
-        $limit = 10;
-        $authUser = auth()->user();
-        $users = User::with('setting')
-            ->where(['status' => true])
-            ->where(function ($query) use ($request) {
-                if ($request->has('filters')) {
-                    $filters = $request['filters'];
-
-                    if ($filters['keywords']) {
-                        $keywords = $filters['keywords'];
-
-                        $query
-                            ->where('name', 'LIKE', "%${keywords}%")
-                            ->orWhere('mobile', 'LIKE', "%${keywords}%");
-                    }
-
-                    if ($filters['father_city']) {
-                        $query
-                            ->where('father_city', $filters['father_city']);
-                    }
-
-                    if ($filters['mother_city']) {
-                        $query
-                            ->where('mother_city', $filters['mother_city']);
-                    }
-
-                    if ($filters['gender'] && $filters['gender'] !== "Any") {
-                        $query
-                            ->where('gender', $filters['gender']);
-                    }
-
-                    if ($filters['marital_status'] && $filters['marital_status'] !== "Any") {
-                        $query
-                            ->where('marital_status', $filters['marital_status']);
-                    }
-
-                    return $query;
-                }
-
-                return $query;
-            })
-            ->orderBy('created_at', 'desc')
-            ->paginate($limit);
-
-        return compact('users');
     }
 
     public function changeAvatar(Request $request)
