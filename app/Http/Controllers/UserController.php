@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Directory;
 use App\Http\Requests\UpdateUserProfile;
 use App\Repositories\UserRepository;
 
@@ -39,14 +38,6 @@ class UserController extends Controller
         try {
             $authUser->update($request->only(['name', 'dob', 'gender', 'avatar', 'status']));
             $user = $this->userRepo->getUserById($authUser['id']);
-
-            Directory::firstOrCreate([
-                'relation' => 'Self',
-                'user_id' => $user->id,
-                'name' => $user->name,
-                'dob' => $user->dob,
-                'gender' => $user->gender,
-            ]);
 
             return compact('user');
         } catch (Exception $e) {

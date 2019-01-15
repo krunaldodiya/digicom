@@ -9,10 +9,11 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 
 use App\Events\UserWasCreated;
 use App\Listeners\CreateUserWallet;
-
 use App\Events\UpdateOrderStatus;
 use App\Listeners\OrderStatusUpdated;
 use App\Listeners\CreateUserSetting;
+use App\Events\CommunityWasSubscribed;
+use App\Listeners\CreateUserDirectory;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,10 @@ class EventServiceProvider extends ServiceProvider
         UserWasCreated::class => [
             CreateUserWallet::class,
             CreateUserSetting::class,
+        ],
+
+        CommunityWasSubscribed::class => [
+            CreateUserDirectory::class,
         ]
     ];
 
