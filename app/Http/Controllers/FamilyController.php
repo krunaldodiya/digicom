@@ -15,6 +15,7 @@ class FamilyController extends Controller
     {
         $this->userRepo = $userRepo;
     }
+
     public function addMember(Request $request)
     {
         $authUser = auth()->user();
@@ -28,6 +29,7 @@ class FamilyController extends Controller
             'user_id' => $authUser['id'],
             'relation' => $request['relation'],
             'gender' => $request['gender'],
+            'marital_status' => "Single",
             'avatar' => $avatar
         ]);
 
@@ -38,7 +40,20 @@ class FamilyController extends Controller
     public function updateMember(Request $request)
     {
         $authUser = auth()->user();
-        Directory::where(['id' => $request['id']])->update($request->only('name'));
+        $member = $request->member;
+
+        Directory::where(['id' => $member['id']])
+            ->update([
+                'avatar' => $member['avatar'],
+                'name' => $member['name'],
+                'dob' => $member['dob'],
+                'marital_status' => $member['marital_status'],
+                'father_city' => $member['father_city'],
+                'mother_city' => $member['mother_city'],
+                'education' => $member['education'],
+                'occupation' => $member['occupation'],
+                'status' => true
+            ]);
 
         $user = $this->userRepo->getUserById($authUser['id']);
         return compact('user');
