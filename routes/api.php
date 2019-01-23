@@ -32,9 +32,9 @@ Route::group(['prefix' => 'users', 'middleware' => 'auth:api'], function () {
 });
 
 Route::group(['prefix' => 'family', 'middleware' => 'auth:api'], function () {
-    Route::post('/request', 'FamilyController@manageRequest');
+    Route::post('/remove', 'FamilyController@removeMember');
     Route::post('/add', 'FamilyController@addMember');
-    Route::post('/switch', 'FamilyController@switchMember');
+    Route::post('/update', 'FamilyController@updateMember');
 });
 
 Route::group(['prefix' => 'communities', 'middleware' => 'auth:api'], function () {
